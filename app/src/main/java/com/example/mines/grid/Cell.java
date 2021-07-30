@@ -11,15 +11,19 @@ import androidx.core.content.ContextCompat;
 import com.example.mines.GameEngine;
 import com.example.mines.R;
 
-public class Cell extends BaseCell implements View.OnClickListener , View.OnLongClickListener{
+public class Cell extends BaseCell implements View.OnClickListener{
     public Cell(Context context , int x , int y ) {
         super(context);
+
+        setPosition(x,y);
+
+        setOnClickListener(this);
     }
 
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec, widthMeasureSpec);
-    }
+            }
 
     @Override
     public void onClick(View v) {
@@ -32,6 +36,26 @@ public class Cell extends BaseCell implements View.OnClickListener , View.OnLong
         super.onDraw(canvas);
         Log.d("Minesweeper" , "Cell::onDraw");
         DrawButton(canvas);
+
+        if( isRevealed() && isBomb() && !isClicked() ){
+            DrawBomb(canvas);
+        }else {
+            if( isClicked() ){
+                if( getValue() == -1 ){
+                    DrawExplosion(canvas);
+                }else {
+                    DrawNumber(canvas);
+                }
+            }else{
+                DrawButton(canvas);
+            }
+        }
+    }
+
+    private void DrawExplosion(Canvas canvas ){
+        Drawable drawable = ContextCompat.getDrawable(getContext(), R.drawable.explosion);
+        drawable.setBounds(0,0,getWidth(),getHeight());
+        drawable.draw(canvas);
     }
 
     private void DrawButton(Canvas canvas){
@@ -39,7 +63,14 @@ public class Cell extends BaseCell implements View.OnClickListener , View.OnLong
         drawable.setBounds(0,0,getWidth(),getHeight());
         drawable.draw(canvas);
     }
-    private void drawNumber( Canvas canvas ){
+
+    private void DrawBomb(Canvas canvas ){
+        Drawable drawable = ContextCompat.getDrawable(getContext(), R.drawable.bomb);
+        drawable.setBounds(0,0,getWidth(),getHeight());
+        drawable.draw(canvas);
+    }
+
+    private void DrawNumber( Canvas canvas ){
         Drawable drawable = null;
 
         switch (getValue() ){
@@ -75,6 +106,7 @@ public class Cell extends BaseCell implements View.OnClickListener , View.OnLong
         drawable.setBounds(0,0,getWidth(),getHeight());
         drawable.draw(canvas);
     }
+
 
 
 }

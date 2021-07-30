@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Mines</string>
+    <string name="game_over">GAME OVER</string>
+    <string name="score0">0</string>
+    <string name="high_score">High Score: 56</string>
+    <string name="try_again">TRY AGAIN</string>
 </resources>

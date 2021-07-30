@@ -14,10 +14,12 @@ public abstract class BaseCell extends View {
     private int position;
 
     public BaseCell(Context context ){
+
         super(context);
     }
 
     public int getValue() {
+
         return value;
     }
 
@@ -32,6 +34,7 @@ public abstract class BaseCell extends View {
         this.value = value;
     }
     public boolean isBomb() {
+
         return isBomb;
     }
 
@@ -49,6 +52,7 @@ public abstract class BaseCell extends View {
     }
 
     public boolean isClicked() {
+
         return isClicked;
     }
 
